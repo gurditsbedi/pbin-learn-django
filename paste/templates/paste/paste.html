@@ -1,0 +1,19 @@
+{% extends "paste/base.html" %}
+
+
+{% block title %} {{ paste.name }} - pbin{% endblock title %}
+
+
+{% block style %}
+body {padding-top: 70px;}
+textarea {resize: none; }
+{% endblock style %}
+
+
+{% block body %}
+<h1> {{ paste.name }} </h1>
+<p><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> {{ paste.timestamp }}</p>
+
+<textarea class="form-control" id="pastearea" rows="10" readonly>{{ paste.text }}</textarea>
+
+{% endblock body %}

@@ -1,0 +1,49 @@
+{% extends "paste/base.html" %}
+
+
+{% block title %}Welcome to pbin{% endblock title %}
+
+
+{% block style %}
+
+body {padding-top: 70px;}
+textarea {resize: none; }
+#id_name, #id_slug {width: 30%; }
+
+{% endblock style %}
+
+
+{% block body %}
+  <form action="{% url 'formSubmit' %}" method="post">
+    {% csrf_token %}
+    <label for="id_text">New Paste</label>
+    {{ form.text }}
+
+    <h3>Optional Paste Settings</h3>
+    <hr>
+    <p>
+      <label for="id_name">Name/Title:</label>
+      {{ form.name }}
+    </p>
+    <p>
+      <label for="id_slug">Custom Shortcode:</label>
+      {{ form.slug }}
+      {% if form.slug.errors %}
+        <ol>
+        {% for error in form.slug.errors %}
+          <li class="text-info"><strong>{{ error|escape }}</strong></li>
+        {% endfor %}
+        </ol>
+      {% endif %}
+      {% if shortcodeDuplicate %}
+        <ul>
+          <li class="text-info"><strong>{{ shortcodeDuplicate }}</strong></li>
+        </ul>
+      {% endif %}
+    </p>
+
+   <input class="btn btn-primary" type="submit" value="Create New Paste">
+
+
+  </form>
+{% endblock body %}
